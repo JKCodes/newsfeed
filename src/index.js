@@ -1,23 +1,19 @@
 import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
-import store from './stores'
-import { Provider } from 'react-redux'
-import Intro from './components/presentation/Intro'
+import { Elements } from './theme'
 
-/* * * * * * * * * * * * * * * * * * * * * * * * * * *
-	This is the entry point of the React app with Redux
-	already implemented. The Intro component is the 
-	visual content and most likely, you will want 
-	to remove it and replace with your own visual content.
-* * * * * * * * * * * * * * * * * * * * * * * * * * * *
-*/
+/* The Elements components is a summary of basic presentation componets
+ * available for use in this theme
+ */
 
+class Example extends Component {
+    render(){
+        return (
+            <div>
+                <Elements />
+            </div>
+        )
+    }
+}
 
-const app = (
-	<Provider store={store.configure(null)}>
-		<Intro />
-	</Provider>
-)
-
-
-ReactDOM.render(app, document.getElementById('root'))
+ReactDOM.render(<Example />, document.getElementById('root'))

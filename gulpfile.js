@@ -1,34 +1,14 @@
-// including plugins
-var gulp = require('gulp')
 var minifyCSS = require('gulp-minify-css')
 var autoprefixer = require('gulp-autoprefixer')
-var gp_concat = require('gulp-concat')
-var gp_rename = require('gulp-rename')
-var gp_uglify = require('gulp-uglify')
-var less = require('gulp-less')
-var to5 = require('gulp-6to5')
-var path = require('path')
+var gulp = require('gulp'),
+    gp_concat = require('gulp-concat'),
+    gp_rename = require('gulp-rename'),
+    gp_uglify = require('gulp-uglify')
 
-gulp.task('less', function () {
-  return gulp.src('./assets/style.less')
-    .pipe(less({
-      paths: [ path.join(__dirname, 'less', 'includes') ]
-    }))
-    .pipe(gulp.dest('./assets/css'))
-})
-
-gulp.task('css', ['less'], function(){
+gulp.task('css', function(){
     return gulp.src(
             [
-                './assets/css/bootstrap.css',
-                './assets/css/style.css',
-                './assets/css/swiper.css',
-                './assets/css/dark.css',
-                './assets/css/font-icons.css',
-                './assets/css/animate.css',
-                './assets/css/magnific-popup.css',
-                './assets/css/responsive.css',
-                './assets/css/custom.css'
+                './assets/css/main.css'
             ]
         )
         .pipe(minifyCSS())
@@ -37,46 +17,70 @@ gulp.task('css', ['less'], function(){
         .pipe(gulp.dest('./dist/css/'))
 })
 
-gulp.task('copy-fonts', function(){
+gulp.task('copy', function(){
     return gulp.src(
-            ['./assets/css/fonts/**']
+            ['./assets/fonts/**']
         )
-        .pipe(gulp.dest('./dist/css/fonts/'))
+        .pipe(gulp.dest('./dist/fonts/'))
 })
 
-gulp.task('style', ['css', 'copy-fonts'], function(){})
-
-
-gulp.task('js', function(){
+gulp.task('copy-images', function(){
     return gulp.src(
-            [
-                './assets/js/jquery.js',
-                './assets/js/plugins.js',
-                './assets/js/functions.js',
-                './assets/js/custom.js'
-            ]
+            ['./images/**']
         )
+        .pipe(gulp.dest('./dist/images/'))
+})
+
+gulp.task('build', function(){
+    return gulp.src(
+    		[
+				'./assets/js/jquery.min.js',
+                './assets/js/skel.min.js',
+                './assets/js/util.js',
+                './assets/js/main.js'
+    		]
+    	)
         .pipe(gp_concat('vendor.min.js'))
         .pipe(gulp.dest('./dist/js/'))
         .pipe(gp_rename('vendor.min.js'))
         .pipe(gp_uglify())
         .pipe(gulp.dest('./dist/js/'))
-});
-
-gulp.task('es6-es5', ['js'], function(){
-    return gulp.src([
-                './src/*/**.js',
-                './src/*/*/**.js'
-            ]
-        )
-        .pipe(to5())
-        .pipe(gulp.dest('./dist/es5/'))
-});
-
-gulp.task('watch', function() {
-    gulp.watch(['./src/*/**.js', './src/*/*/**.js', './assets/js/**.js'], ['es6-es5'])
 })
 
-gulp.task('prod', ['style', 'es6-es5'], function(){})
+gulp.task('package-assets', function(){
+    return gulp.src(
+        ['./dist/**/**']
+    )
+    .pipe(gulp.dest('./package/assets/'))
+    .pipe(gulp.dest('./package/example/assets/'))
+})
 
-gulp.task('default', ['es6-es5', 'watch'], function(){})
+gulp.task('package-src', function(){
+    return gulp.src(
+        ['./src/**', './src/theme/**']
+    )
+    .pipe(gulp.dest('./package/src/'))
+    .pipe(gulp.dest('./package/example/src/'))
+})
+
+gulp.task('package-example', function(){
+    return gulp.src(
+        ['./example/**']
+    )
+    .pipe(gulp.dest('./package/example'))
+})
+
+gulp.task('package-instructions', function(){
+    return gulp.src(
+        ['./instructions.txt']
+    )
+    .pipe(gulp.dest('./package/'))
+})
+
+gulp.task('package', ['package-assets', 'package-src', 'package-example', 'package-instructions'], function(){})
+
+
+gulp.task('prod', ['build', 'css', 'copy', 'copy-images'], function(){})
+
+gulp.task('default', ['build', 'css', 'copy', 'copy-images'], function(){})
+
