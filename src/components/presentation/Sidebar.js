@@ -1,7 +1,4 @@
 import React, { Component } from 'react'
-import turbo from 'turbo360'
-import { connect } from 'react-redux'
-import actions from '../../actions'
 import { Feeds } from '../containers'
 
 class Sidebar extends Component {
@@ -16,18 +13,6 @@ class Sidebar extends Component {
     }
   }
 
-  componentDidMount() {
-    this.props.fetchFeeds(null)
-    .then(data => {
-      this.setState({
-        feeds: data
-      })
-    })
-    .catch(err => {
-      console.log("Error: " + err.message)
-    })    
-  }
-
   updateFeed(field, event) {
     let feed = Object.assign({}, this.state.feed)
     feed[field] = event.target.value
@@ -39,7 +24,6 @@ class Sidebar extends Component {
 
   addFeed(event) {
     event.preventDefault()
-
     this.props.createFeed(this.state.feed)
     .then(data => {
       this.setState({
@@ -55,9 +39,6 @@ class Sidebar extends Component {
   }
 
   render() {
-
-    const feeds = this.props.feeds.all || []
-
     return (
       <div id="sidebar">
         <div className="inner">
@@ -74,12 +55,6 @@ class Sidebar extends Component {
                 <h2>My Feeds</h2>
             </header>
             <Feeds />
-            <ul>
-              { feeds.map((feed, i) => {
-                  return <li key={feed.id}>< a href="#">{feed.name}</a></li>
-                })
-              }
-            </ul>
           </nav>  
         </div>
       </div>
@@ -87,17 +62,4 @@ class Sidebar extends Component {
   }
 }
 
-const stateToProps = (state) => {
-  return {
-    feeds: state.feed
-  }
-}
-
-const dispatchToProps = (dispatch) => {
-  return {
-    fetchFeeds: (params) => dispatch(actions.fetchFeeds(params)),
-    createFeed: (params) => dispatch(actions.createFeed(params))
-  }
-}
-
-export default connect(stateToProps, dispatchToProps)(Sidebar)
+export default Sidebar
