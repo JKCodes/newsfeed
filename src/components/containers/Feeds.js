@@ -36,8 +36,7 @@ const stateToProps = (state) => {
 
 const dispatchToProps = (dispatch) => {
   return {
-    fetchFeeds: (params) => dispatch(actions.fetchFeeds(params)),
-    createFeed: (params) => dispatch(actions.createFeed(params))
+    fetchFeeds: (params) => dispatch(actions.fetchFeeds(params))
   }
 }
 
