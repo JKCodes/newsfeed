@@ -7,6 +7,7 @@
 
 export default {
 
-  FEEDS_RECEIVED:     'FEEDS_RECEIVED'
+  FEEDS_RECEIVED:     'FEEDS_RECEIVED',
+  FEEDS_CREATED:     'FEEDS_CREATED'
 
 }

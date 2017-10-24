@@ -7,5 +7,11 @@ export default {
 		return dispatch => {
 			return dispatch(TurboClient.getRequest('feed', params, constants.FEEDS_RECEIVED))
 		}
-	}
+	},
+
+  createFeeds: (params) => {
+    return dispatch => {
+      return dispatch(TurboClient.postRequest('feed', params, constants.FEEDS_CREATED))
+    }
+  }  
 }
