@@ -13,6 +13,13 @@ export default (state = initialState, action) => {
       newState['all'] = action.data
       return newState
 
+    case constants.FEEDS_CREATED:
+
+      let all = (newState.all) ? Object.assign([], newState.all) : []
+      all.unshift(action.data)
+      newState['all'] = all
+      return newState
+
     default:
       return state
   }
