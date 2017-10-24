@@ -8,7 +8,9 @@ class Sidebar extends Component {
         <div className="inner">
           <section id="search" className="alt">
             <form method="post" action="#">
-              <input type="text" name="query" id="query" placeholder="Search" />
+              <input type="text" name="query" id="query" placeholder="Feed Name" /><br />
+              <input type="text" name="query" id="query" placeholder="Feed URL" /><br />
+              <button>Add Feed</button>
             </form>
           </section>
           
