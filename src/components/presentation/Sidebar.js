@@ -14,11 +14,11 @@ class Sidebar extends Component {
           
           <nav id="menu">
             <header className="major">
-                <h2>News Feeds</h2>
+                <h2>My Feeds</h2>
             </header>
             <ul>
-              <li><a href="index.html">Homepage</a></li>
-              <li><a href="generic.html">Generic</a></li>
+              <li><a href="index.html">Hacker News</a></li>
+              <li><a href="generic.html">NY Daily News Sports</a></li>
               <li><a href="elements.html">Elements</a></li>
               <li><a href="#">Etiam Dolore</a></li>
               <li><a href="#">Adipiscing</a></li>
