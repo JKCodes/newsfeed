@@ -7,7 +7,13 @@ class Feed extends Component {
   render() {
 
     const selectedFeed = this.props.feeds.selected
-    const name = (selectedFeed) ? selectedFeed.name : 'Welcome to NewsFeed'
+    let name = 'Welcome to NewsFeed'
+    let items = []
+    if (selectedFeed) {
+        name = selectedFeed.name
+        items = (this.props.rss[selectedFeed.url]) ? this.props.rss[selectedFeed.url] : []
+    }
+
 
     return (
       <div className="content">
@@ -15,17 +21,32 @@ class Feed extends Component {
           <h1>{name}</h1>
           <hr />
         </header>
-        <p>
-          Aenean ornare velit lacus, ac varius enim ullamcorper eu. Proin aliquam facilisis ante interdum congue. Integer mollis, nisl amet convallis, porttitor magna ullamcorper, amet egestas mauris. Ut magna finibus nisi nec lacinia. Nam maximus erat id euismod egestas. Pellentesque sapien ac quam. Lorem ipsum dolor sit nullam.
-        </p>
+        <ol>
+          { items.map((item, i) => {
+              return (
+                <li key={i}>
+                  <a style={style.link} target="_blank" href={item.link}>{item.title}</a>
+                </li>
+              )
+            })
+          }
+        </ol>
       </div>
     )
   }
 }
 
+const style = {
+  link: {
+    border: 'none',
+    color: 'blue'
+  }
+}
+
 const stateToProps = (state) => {
   return {
-    feeds: state.feed
+    feeds: state.feed,
+    rss: state.rss
   }
 }
 
