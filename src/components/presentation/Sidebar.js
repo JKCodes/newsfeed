@@ -38,14 +38,14 @@ class Sidebar extends Component {
 
   addFeed(event) {
     event.preventDefault()
-    
-    var turboClient = turbo({site_id: '59ef2f3bfaf4920012e2aa3d'})
-    turboClient.create('feed', this.state.feed)
+
+    this.props.createFeed(this.state.feed)
     .then(data => {
-      let feeds = Object.assign([], this.state.feeds)
-      feeds.unshift(data)
       this.setState({
-        feeds: feeds
+        feed: {
+          name: '',
+          url: ''
+        }
       })
     })
     .catch(err => {
@@ -62,8 +62,8 @@ class Sidebar extends Component {
         <div className="inner">
           <section id="search" className="alt">
             <form onSubmit={this.addFeed.bind(this)} method="post" action="#">
-              <input onChange={this.updateFeed.bind(this, 'name')} type="text" name="query" id="query" placeholder="Feed Name" /><br />
-              <input onChange={this.updateFeed.bind(this, 'url')} type="text" name="query" id="query" placeholder="Feed URL" /><br />
+              <input onChange={this.updateFeed.bind(this, 'name')} value={this.state.feed.name} type="text" name="query" id="query" placeholder="Feed Name" /><br />
+              <input onChange={this.updateFeed.bind(this, 'url')} value={this.state.feed.url} type="text" name="query" id="query" placeholder="Feed URL" /><br />
               <button>Add Feed</button>
             </form>
           </section>
@@ -93,7 +93,8 @@ const stateToProps = (state) => {
 
 const dispatchToProps = (dispatch) => {
   return {
-    fetchFeeds: (params) => dispatch(actions.fetchFeeds(params))
+    fetchFeeds: (params) => dispatch(actions.fetchFeeds(params)),
+    createFeed: (params) => dispatch(actions.createFeed(params))
   }
 }
 
