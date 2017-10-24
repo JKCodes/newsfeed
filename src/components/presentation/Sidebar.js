@@ -14,6 +14,20 @@ class Sidebar extends Component {
     }
   }
 
+  componentDidMount() {
+    var turboClient = turbo({site_id: '59ef2f3bfaf4920012e2aa3d'})
+
+    turboClient.fetch('feed', null)
+    .then(data => {
+      this.setState({
+        feeds: data
+      })
+    })
+    .catch(err => {
+      console.log('Error: ' + err.message)
+    })
+  }
+
   updateFeed(field, event) {
     let feed = Object.assign({}, this.state.feed)
     feed[field] = event.target.value
@@ -30,7 +44,7 @@ class Sidebar extends Component {
     turboClient.create('feed', this.state.feed)
     .then(data => {
       let feeds = Object.assign([], this.state.feeds)
-      feeds.push(data)
+      feeds.unshift(data)
       this.setState({
         feeds: feeds
       })
