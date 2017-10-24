@@ -14,13 +14,22 @@ class Feeds extends Component {
     })    
   }
 
+  selectFeed(feed, event) {
+    event.preventDefault()
+    alert('hi')
+  }
+
   render() {
     const feeds = this.props.feeds.all || []
 
     return (
       <ul>
         { feeds.map((feed, i) => {
-            return <li key={feed.id}>< a href="#">{feed.name}</a></li>
+            return (
+              <li key={feed.id}>
+                <a href="#" onClick={this.selectFeed.bind(this, feed)}>{feed.name}</a>
+              </li>
+            )
           })
         }
       </ul>

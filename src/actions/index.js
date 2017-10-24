@@ -3,6 +3,13 @@ import { TurboClient } from '../utils'
 
 export default {
 
+  selectFeed: (feed) => {
+    return {
+      type: constants.SELECT_FEED,
+      data: feed
+    }
+  }
+
 	fetchFeeds: (params) => {
 		return dispatch => {
 			return dispatch(TurboClient.getRequest('feed', params, constants.FEEDS_RECEIVED))
