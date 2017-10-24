@@ -16,7 +16,7 @@ class Feeds extends Component {
 
   selectFeed(feed, event) {
     event.preventDefault()
-    alert('hi')
+    this.props.selectFeed(feed)
   }
 
   render() {
@@ -25,9 +25,13 @@ class Feeds extends Component {
     return (
       <ul>
         { feeds.map((feed, i) => {
+            const color = (feed == this.props.feeds.selected) ? 'red' : '#333'
             return (
               <li key={feed.id}>
-                <a href="#" onClick={this.selectFeed.bind(this, feed)}>{feed.name}</a>
+                <a style={{color:color}}
+                  href="#" 
+                  onClick={this.selectFeed.bind(this, feed)}
+                >{feed.name}</a>
               </li>
             )
           })
@@ -45,7 +49,8 @@ const stateToProps = (state) => {
 
 const dispatchToProps = (dispatch) => {
   return {
-    fetchFeeds: (params) => dispatch(actions.fetchFeeds(params))
+    fetchFeeds: (params) => dispatch(actions.fetchFeeds(params)),
+    selectFeed: (feed) => dispatch(actions.selectFeed(feed))
   }
 }
 

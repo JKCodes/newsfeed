@@ -8,7 +8,7 @@ export default {
       type: constants.SELECT_FEED,
       data: feed
     }
-  }
+  },
 
 	fetchFeeds: (params) => {
 		return dispatch => {
