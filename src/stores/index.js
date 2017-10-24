@@ -1,6 +1,6 @@
 import { createStore, applyMiddleware, combineReducers } from 'redux'
 import thunk from 'redux-thunk'
-import { feedReducer } from '../reducers'
+import { feedReducer, rssReducer } from '../reducers'
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * *
 	This is a store with one reducer: userReducer. When 
@@ -15,7 +15,8 @@ export default {
 	configure: (initialState) => { // initialState can be null
 		
 		const reducers = combineReducers({ // insert reducers here
-			feed: feedReducer
+			feed: feedReducer,
+			rss: rssReducer
 		})
 
 		if (initialState){
