@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import turbo from 'turbo360'
 import { connect } from 'react-redux'
 import actions from '../../actions'
+import { Feeds } from '../containers'
 
 class Sidebar extends Component {
 
@@ -72,6 +73,7 @@ class Sidebar extends Component {
             <header className="major">
                 <h2>My Feeds</h2>
             </header>
+            <Feeds />
             <ul>
               { feeds.map((feed, i) => {
                   return <li key={feed.id}>< a href="#">{feed.name}</a></li>
