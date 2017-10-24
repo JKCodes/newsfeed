@@ -6,6 +6,7 @@ class Sidebar extends Component {
   constructor() {
     super()
     this.state = {
+      feeds: [],
       feed: {
         name: '',
         url: ''
@@ -28,7 +29,11 @@ class Sidebar extends Component {
     var turboClient = turbo({site_id: '59ef2f3bfaf4920012e2aa3d'})
     turboClient.create('feed', this.state.feed)
     .then(data => {
-      console.log("FEED CREATED: " + JSON.stringify(data))
+      let feeds = Object.assign([], this.state.feeds)
+      feeds.push(data)
+      this.setState({
+        feeds: feeds
+      })
     })
     .catch(err => {
       alert('Error: ' + err.message)
@@ -52,14 +57,10 @@ class Sidebar extends Component {
                 <h2>My Feeds</h2>
             </header>
             <ul>
-              <li><a href="index.html">Hacker News</a></li>
-              <li><a href="generic.html">NY Daily News Sports</a></li>
-              <li><a href="elements.html">Elements</a></li>
-              <li><a href="#">Etiam Dolore</a></li>
-              <li><a href="#">Adipiscing</a></li>
-              <li><a href="#">Maximus Erat</a></li>
-              <li><a href="#">Sapien Mauris</a></li>
-              <li><a href="#">Amet Lacinia</a></li>
+              { this.state.feeds.map((feed, i) => {
+                  return <li key={feed.id}>< a href="#">{feed.name}</a></li>
+                })
+              }
             </ul>
           </nav>  
         </div>
