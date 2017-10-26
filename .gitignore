@@ -1,4 +1,5 @@
 /node_modules/
+/dist/
 DOCUMENTATION.md
 /src/theme
 TODO.md
